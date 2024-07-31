@@ -18,15 +18,16 @@
                     UI.clearScreen();
                     UI.printBoard(chessMatch.getPieces());
                     System.out.println();
-                    System.out.print("Source: ");
+                    System.out.print("Origem: ");
                     ChessPosition source = UI.readChessPosition(sc);
 
                     System.out.println();
-                    System.out.print("Target: ");
+                    System.out.print("Alvo: ");
                     ChessPosition target = UI.readChessPosition(sc);
 
                     ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
-                } catch (ChessException | InputMismatchException e){
+                }
+                catch (ChessException | InputMismatchException e) {
                     System.out.println(e.getMessage());
                     sc.nextLine();
                 }

@@ -16,7 +16,6 @@
             ChessMatch chessMatch = new ChessMatch();
             List<ChessPiece> captured = new ArrayList<>();
 
-
             while (!chessMatch.getCheckMate()) {
                 try {
                     UI.clearScreen();
@@ -28,18 +27,31 @@
                     boolean[][] possibleMoves = chessMatch.possibleMoves(source);
                     UI.clearScreen();
                     UI.printBoard(chessMatch.getPieces(), possibleMoves);
-
                     System.out.println();
                     System.out.print("Alvo: ");
                     ChessPosition target = UI.readChessPosition(sc);
 
                     ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
 
-                    if(capturedPiece != null) {
+                    if (capturedPiece != null) {
                         captured.add(capturedPiece);
                     }
+
+                    if (chessMatch.getPromoted() != null) {
+                        System.out.print("Digite uma peça para promover (B/N/R/Q): ");
+                        String type = sc.nextLine().toUpperCase();
+                        while (!type.equals("B") && !type.equals("N") && !type.equals("R") & !type.equals("Q")) {
+                            System.out.print("Valor invalido! Digite uma peça para promover (B/N/R/Q): ");
+                            type = sc.nextLine().toUpperCase();
+                        }
+                        chessMatch.replacePromotedPiece(type);
+                    }
                 }
-                catch (ChessException | InputMismatchException e) {
+                catch (ChessException e) {
+                    System.out.println(e.getMessage());
+                    sc.nextLine();
+                }
+                catch (InputMismatchException e) {
                     System.out.println(e.getMessage());
                     sc.nextLine();
                 }
